@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+            GTA VI: Vice Reborn
+        {% endblock %}
+    </title>
+    {% block style %}
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Oswald', sans-serif;
+            background: url('https://i.pinimg.com/originals/19/99/dd/1999dd9861492832f4823d0e410f0ff7.gif') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+        }
+
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.75);
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px 40px;
+        }
+
+        nav .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00FFC8;
+            text-shadow: 1px 1px #000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ff00aa;
+        }
+
+        h1 {
+            font-size: 64px;
+            color: #00FFC8;
+            text-shadow: 2px 2px #000;
+            margin-top: 100px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 20px;
+            color: #ccc;
+            margin-bottom: 40px;
+        }
+
+        a.button {
+            text-decoration: none;
+            background-color: #ff00aa;
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 18px;
+            margin: 10px;
+            transition: 0.3s ease-in-out;
+        }
+
+        a.button:hover {
+            background-color: #cc0088;
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #aaa;
+            padding-bottom: 20px;
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+    {% block content %}
+    <div class="overlay">
+
+        <!-- 🔥 NAVBAR START -->
+         {% block navbarof %}
+        <nav>
+            <div class="logo">POSTGRAM</div>
+            <ul>
+            <li><a href="/">Home</a></li>
+            
+            {% if user.is_authenticated %}
+                <p>Hello, {{ user.username }}!</p>
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+            
+            </form>
+
+                </form>
+            </ul>
+        </nav>
+        {% endblock %}
+        <!-- 🔥 NAVBAR END -->
+
+        <h1>WELCOME TO HOME PAGE</h1>
+        <p>The streets are yours in control panel — rule or be ruled.</p>
+        <a href="/post/" class="button">Posts</a>
+        <a href="/register/" class="button">Register</a>
+
+        <footer>
+            <p>© 2025 M0HIT_AI</p>
+        </footer>
+    </div>
+    {% endblock %}
+</body>
+</html>
+
+

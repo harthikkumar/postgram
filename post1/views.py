@@ -36,11 +36,14 @@ def post_create(request):
     if request.method == 'POST':
         form = postform(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-        return redirect('post_list')  # change to your desired redirect
+            post = form.save(commit=False)  # delay saving to add user
+            post.user = request.user       # ✅ attach current logged-in user
+            post.save()                    # now save to DB
+            return redirect('post_list')
     else:
-        form = postform()  # this was missing
+        form = postform()
     return render(request, 'post1/post_create.html', {'form': form})
+
 
 @login_required
 def post_edit(request,post_id):
@@ -92,17 +95,20 @@ def register(request):
     return render(request,'registration/register.html',{'form':form})
 
 
-def login(request):
+from django.contrib.auth import login as auth_login  # ✅ import Django's login function safely
+
+def login_view(request):  # ✅ renamed to avoid conflict
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user)  # now correctly refers to Django's login
+            auth_login(request, user)  # ✅ correctly calls Django’s login
             return redirect('home')
         else:
             return HttpResponse("Invalid credentials")
     return render(request, 'login.html')
+
 
 
 
